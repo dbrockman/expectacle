@@ -103,7 +103,7 @@ declare namespace expect {
     description?: string
   ): expect.PromisedExpectation<T>;
   export function typeOf(value: any): string;
-  export function fail(opt_message?: string): void;
+  export function fail(opt_message?: string): never;
   export function addMatcher(name: string, matcher: any): void;
   export function addMatchers(matchers: { [name: string]: any }): void;
 }
