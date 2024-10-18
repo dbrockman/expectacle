@@ -50,6 +50,45 @@ describe('Expectacle', function () {
     });
   });
 
+  describe('Function: expect.assert()', function () {
+    it('should not throw an error if the condition is met.', function () {
+      expect.assert(true);
+      expect.assert(1);
+      expect.assert('hello');
+    });
+
+    it('should throw a new ExpectationError if the condition is not met.', function () {
+      let error = null;
+      try {
+        expect.assert(false);
+      } catch (e) {
+        error = e;
+      }
+      if (error === null) {
+        throw new Error('expect.assert did not throw an error.');
+      }
+      if (error.name !== 'ExpectationError') {
+        throw new Error('expect.assert did not throw an ExpectationError.');
+      }
+    });
+
+    it('should use the optional message argument as the error message.', function () {
+      const message = 'This is an error message.';
+      let error = null;
+      try {
+        expect.assert(0, message);
+      } catch (e) {
+        error = e;
+      }
+      if (error === null) {
+        throw new Error('expect.assert did not throw an error.');
+      }
+      if (error.message !== message) {
+        throw new Error('expect.assert did not use the message argument.');
+      }
+    });
+  });
+
   describe('Default Matchers', function () {
     describe('toBe Matcher', function () {
       it('should strictly match value to the expected value.', function () {

@@ -48,7 +48,7 @@ declare namespace expect {
 
     toBeLike(v: any): Chainer;
 
-    toHaveShape(v: { [name: string]: Shape } | Shape): Chainer;
+    toHaveShape(v: {[name: string]: Shape} | Shape): Chainer;
 
     toThrow(v: any): Chainer;
     toMatch(v: any): Chainer;
@@ -104,6 +104,28 @@ declare namespace expect {
   ): expect.PromisedExpectation<T>;
   export function typeOf(value: any): string;
   export function fail(opt_message?: string): void;
+
+  /**
+   * Asserts that a condition is met. If the condition is not met, an
+   * ExpectationError is thrown.
+   *
+   * @example
+   *
+   * ```ts
+   * expect.assert(1 === 1);
+   *
+   * let value = getValueOfUnknownType();
+   * expect.assert(typeof value === 'string', 'Expected a string value'); // The type of value is now narrowed to string.
+   * expect(value.startsWith('abc')).toBe(true); // Other assertions can now be made on value as a string.
+   * ```
+   *
+   * @param condition - The condition to test.
+   * @param opt_message - An optional message to include in the error.
+   */
+  export function assert(
+    condition: any,
+    opt_message?: string
+  ): asserts condition;
   export function addMatcher(name: string, matcher: any): void;
-  export function addMatchers(matchers: { [name: string]: any }): void;
+  export function addMatchers(matchers: {[name: string]: any}): void;
 }

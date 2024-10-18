@@ -1285,6 +1285,16 @@
     });
   };
 
+  expect.assert = function (condition, message) {
+    if (!condition) {
+      throw new ExpectationError({
+        message:
+          message || 'The condition passed to expect.assert was not met.',
+        stackFn: expect.assert,
+      });
+    }
+  };
+
   /**
    * Adds a matcher.
    *
